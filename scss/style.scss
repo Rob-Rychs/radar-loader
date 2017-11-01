@@ -1,0 +1,122 @@
+$c: #0bea01;
+$dim: 80vmin;
+$r-stop0: $dim/8;
+$r-stop1: calc(#{$r-stop0} - .125em);
+$l-stop0: calc(50% - 1px);
+$l-stop1: calc(50% + 1px);
+$n: 20;
+$a: 360deg/$n;
+$lines: ();
+
+@for $i from 0 to $n {
+	$lines: $lines, 
+		linear-gradient($i*$a, 
+			transparent $l-stop0, $c $l-stop0, 
+			$c $l-stop1, transparent $l-stop1);
+}
+
+html { background: black; }
+
+#radar {
+	overflow: hidden;
+	position: relative;
+	margin: 10vmin auto;
+	margin-top: 0px;
+	width: 80vmin; height: 80vmin;
+	border-radius: 50%;
+	box-shadow: 0 0 .5em #000, 
+		inset 0 0 .25em lime;
+	background: $lines, 
+		repeating-radial-gradient(
+			transparent, transparent $r-stop1, 
+			$c $r-stop1, $c $r-stop0)
+		#000;
+	
+	&:before, &:after {
+		position: absolute;
+		top: 0; right: 0; bottom: 0; left: 0;
+		border-radius: 50%;
+		content: '';
+	}
+	
+	&:before {
+		background: 
+			radial-gradient(circle, #fff, lime, rgba(lime, 0) 72%) 
+				0 ($dim/3), 
+			radial-gradient(circle, #fff, lime, rgba(lime, 0) 72%) 
+				3*$dim/4 0;
+		background-repeat: no-repeat;
+		background-size: .5em .5em, .75em .75em;
+		animation: move 7.73s linear infinite, 
+					pulse .19s linear infinite alternate;
+	}
+	
+	&:after {
+		background: conic-gradient(rgba(lime, 0) 315deg, 
+			rgba(lime, .32) 345deg, rgba(lime, .7));
+		animation: r 2s linear infinite;
+	}
+}
+
+@keyframes r { to { transform: rotate(1turn); } }
+
+@keyframes move {
+	to {
+		background-position: $dim $dim/2, $dim/2 5*$dim/4;
+	}
+}
+
+@keyframes pulse {
+	to {
+		background-size: .25em .25em, .375em .375em;
+	}
+}
+
+$msg: 'Locating kickass developer...' 
+	'>>> TARGET ACQUIRED';
+$cmsg: str-length(nth($msg, 1)) 
+	str-length(nth($msg, 2));
+$max: max($cmsg...);
+$nmsg: $max + min($cmsg...);
+$tu: .08s;
+
+body {
+	margin: 0;
+	height: 100vh;
+	// background: 
+	// 	radial-gradient(rgba(#000, .7), #000), 
+	// 	url(https://pbs.twimg.com/media/CsjHEVFW8AA7uDs.jpg) 50%/cover no-repeat #000;
+	background-blend-mode: luminosity;
+	color: lime;
+	font: 1.5em/ 2 vt323, monospace;
+}
+
+.message {
+	position: absolute;
+	top: 90%; left: 50%;
+	width: $max*1ch;
+	transform: translate(-50%, -50%);
+	
+	&:before, &:after {
+		display: block;
+		overflow: hidden;
+		width: 0;
+		white-space: nowrap;
+		animation: a1 nth($cmsg, 1)*$tu 
+			steps(nth($cmsg, 1)) forwards;
+		content: nth($msg, 1);
+	}
+	
+	&:after {
+		animation: a2 nth($cmsg, 2)*$tu
+			steps(nth($cmsg, 2)) nth($cmsg, 1)*$tu 
+			forwards;
+		content: nth($msg, 2);
+	}
+}
+
+@for $i from 1 through 2 {
+	@keyframes a#{$i} {
+		to { width: nth($cmsg, $i)*1ch; }
+	}
+}

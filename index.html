@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Radar-loader (a conic-gradient use case)</title>
+  
+  
+  
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      html {
+  background: black;
+}
+
+#radar {
+  overflow: hidden;
+  position: relative;
+  margin: 10vmin auto;
+  margin-top: 0px;
+  width: 80vmin;
+  height: 80vmin;
+  border-radius: 50%;
+  box-shadow: 0 0 .5em #000,  inset 0 0 .25em lime;
+  background: linear-gradient(0deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(18deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(36deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(54deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(72deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(90deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(108deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(126deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(144deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(162deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(180deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(198deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(216deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(234deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(252deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(270deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(288deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(306deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(324deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(342deg, transparent calc(50% - 1px), #0bea01 calc(50% - 1px), #0bea01 calc(50% + 1px), transparent calc(50% + 1px)), repeating-radial-gradient(transparent, transparent calc(10vmin - .125em), #0bea01 calc(10vmin - .125em), #0bea01 10vmin) #000;
+}
+#radar:before, #radar:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  content: '';
+}
+#radar:before {
+  background: radial-gradient(circle, #ffffff, #00ff00, rgba(0, 255, 0, 0) 72%) 0 26.66667vmin, radial-gradient(circle, #ffffff, #00ff00, rgba(0, 255, 0, 0) 72%) 60vmin 0;
+  background-repeat: no-repeat;
+  background-size: .5em .5em, .75em .75em;
+  animation: move 7.73s linear infinite,  pulse .19s linear infinite alternate;
+}
+#radar:after {
+  background: conic-gradient(rgba(0, 255, 0, 0) 315deg, rgba(0, 255, 0, 0.32) 345deg, rgba(0, 255, 0, 0.7));
+  animation: r 2s linear infinite;
+}
+
+@keyframes r {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes move {
+  to {
+    background-position: 80vmin 40vmin, 40vmin 100vmin;
+  }
+}
+@keyframes pulse {
+  to {
+    background-size: .25em .25em, .375em .375em;
+  }
+}
+body {
+  margin: 0;
+  height: 100vh;
+  background-blend-mode: luminosity;
+  color: lime;
+  font: 1.5em/ 2 vt323, monospace;
+}
+
+.message {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  width: 29ch;
+  transform: translate(-50%, -50%);
+}
+.message:before, .message:after {
+  display: block;
+  overflow: hidden;
+  width: 0;
+  white-space: nowrap;
+  animation: a1 2.32s steps(29) forwards;
+  content: "Locating kickass developer...";
+}
+.message:after {
+  animation: a2 1.52s steps(19) 2.32s forwards;
+  content: ">>> TARGET ACQUIRED";
+}
+
+@keyframes a1 {
+  to {
+    width: 29ch;
+  }
+}
+@keyframes a2 {
+  to {
+    width: 19ch;
+  }
+}
+
+    </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+  <div id="radar"></div>
+<div class="message"></div>
+  <script src='https://leaverou.github.io/conic-gradient/conic-gradient.js'></script>
+
+  
+</body>
+</html>
